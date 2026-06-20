@@ -1,6 +1,29 @@
 /* ============================================================
    KIFRAN — admin.js
 ============================================================ */
+
+/* ---- toast ----
+   admin.html only loads kifran-data.js + admin.js (not shop.js),
+   so the shared toast() helper isn't available here. Define a
+   self-contained copy. Without this, the very first toast() call
+   in doLogin() threw "toast is not defined", which aborted the
+   function before showApp() ran — so Sign In appeared to do nothing
+   until a manual refresh. */
+function toast(msg, type = '') {
+  const wrap = document.getElementById('toasts');
+  if (!wrap) { alert(msg); return; }
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.textContent = msg;
+  wrap.appendChild(t);
+  setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transform = 'translateX(20px)';
+    t.style.transition = '.3s';
+    setTimeout(() => t.remove(), 300);
+  }, 2600);
+}
+
 /* ---- save (updated for database) ---- */
 document.getElementById('prodSave').addEventListener('click', async () => {
   const name = document.getElementById('m-name').value.trim();
@@ -103,8 +126,13 @@ document.getElementById('l-pass').addEventListener('keydown', e => { if (e.key =
 function doLogin() {
   const email = document.getElementById('l-email').value;
   const pass = document.getElementById('l-pass').value;
-  if (KF.login(email, pass)) { document.getElementById('loginErr').textContent = ''; toast('Welcome back, admin', 'ok'); showApp(); }
-  else document.getElementById('loginErr').textContent = 'Invalid email or password';
+  if (KF.login(email, pass)) {
+    document.getElementById('loginErr').textContent = '';
+    showApp();                               // switch screens FIRST — the critical action
+    toast('Welcome back, admin', 'ok');      // cosmetic; never let it block sign-in
+  } else {
+    document.getElementById('loginErr').textContent = 'Invalid email or password';
+  }
 }
 document.getElementById('logoutBtn').addEventListener('click', () => { KF.logout(); showLogin(); toast('Logged out'); });
 
