@@ -178,13 +178,17 @@ document.getElementById('placeOrder').addEventListener('click', async () => {
     // Save to database
     await KF.addOrder(order);
 
-    // Reduce stock
-    const products = KF.getProducts();
-    items.forEach(i => { const p = products.find(x => x.id === i.id); if (p) p.stock = Math.max(0, p.stock - i.qty); });
-    // Update stock in DB for each product
-    for (const i of items) {
-      const p = products.find(x => x.id === i.id);
-      if (p) await KF.saveProduct({ ...p, stock: p.stock });
+    // Stock update is best-effort — never let it block the order confirmation
+    try {
+      for (const i of items) {
+        const p = KF.getProduct(i.id);
+        if (p) {
+          const newStock = Math.max(0, (p.stock || 0) - i.qty);
+          await KF.saveProduct({ id: p.id, stock: newStock });
+        }
+      }
+    } catch (stockErr) {
+      console.warn('Stock update failed (order was still placed):', stockErr);
     }
 
     KF.clearCart();
