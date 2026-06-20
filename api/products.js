@@ -112,7 +112,7 @@ export default async function handler(req, res) {
         `INSERT INTO products (${cols.join(', ')}) VALUES (${placeholders.join(', ')}) ` +
         `ON CONFLICT (id) DO UPDATE SET ${updates.join(', ')}`;
 
-      await sql.query(text, vals);
+      await sql(text, vals);
       return res.status(200).json({ success: true, id, action: exists ? 'updated' : 'created' });
     }
 

@@ -608,7 +608,7 @@ export default async function handler(req, res) {
       const colors = JSON.stringify(p.colors ?? ['Natural']);
       const sizes = JSON.stringify(p.sizes ?? []);
 
-      await sql.query(
+      await sql(
         `INSERT INTO products
            (id, name, brand, material, cat, price, mrp, stock, badge, rating, reviews,
             images, gallery, img, colors, sizes, features, specs, description,

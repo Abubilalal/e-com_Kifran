@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       const d = parseBody(req);
       if (!d || !d.id) return res.status(400).json({ error: 'Invalid JSON' });
 
-      await sql.query(
+      await sql(
         `INSERT INTO orders
            (id, date, status, payment, customer, items, couponpct, totals, trackingid, courier)
          VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
@@ -78,7 +78,7 @@ export default async function handler(req, res) {
       if (!sets.length) return res.status(200).json({ success: false, error: 'No fields to update' });
 
       vals.push(d.id);
-      await sql.query(`UPDATE orders SET ${sets.join(', ')} WHERE id = $${vals.length}`, vals);
+      await sql(`UPDATE orders SET ${sets.join(', ')} WHERE id = $${vals.length}`, vals);
       return res.status(200).json({ success: true, id: d.id });
     }
 
