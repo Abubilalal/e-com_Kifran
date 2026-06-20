@@ -149,6 +149,11 @@ function validate() {
 }
 
 /* ---------- place order ---------- */
+/* read a shipping field by short id (f-name, f-email, f-addr, ...) */
+function f(id) {
+  const el = document.getElementById('f-' + id);
+  return el ? (el.value || '').trim() : '';
+}
 document.getElementById('placeOrder').addEventListener('click', async () => {
   const items = KF.cartDetailed();
   if (items.length === 0) { toast('Your cart is empty', 'bad'); return; }
