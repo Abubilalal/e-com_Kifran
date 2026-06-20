@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/png" href="images/KIFRAN-LOGO.png"/>
+  <link rel="apple-touch-icon" href="images/KIFRAN-LOGO.png"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KIFRAN — My Orders</title>
+  <meta name="description" content="Track your KIFRAN orders, follow delivery status, add a courier tracking ID, and review the pieces you’ve received."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css?v=6"/>
+  <link rel="stylesheet" href="pages.css?v=6"/>
+  <link rel="stylesheet" href="shop.css?v=6"/>
+  <link rel="stylesheet" href="upgrade.css?v=6"/>
+</head>
+<body class="mkt">
+<div id="kfChrome"></div>
+
+<main class="mkt-wrap">
+  <nav class="breadcrumb"><a href="store.html">Home</a> <span>›</span> <span>My Orders</span></nav>
+  <div class="orders-head">
+    <h1 style="font-family:var(--serif);font-size:clamp(26px,4vw,38px);color:var(--ink);margin:6px 0 4px">My Orders</h1>
+    <p style="color:var(--sand-dim);font-size:14px;margin-bottom:24px">Track delivery, add a courier tracking ID, and review what you’ve received.</p>
+  </div>
+  <div id="ordersList"><div class="orders-loading">Loading your orders…</div></div>
+</main>
+
+<!-- review modal -->
+<div class="modal-overlay" id="revModal">
+  <div class="modal">
+    <h3>Review your piece</h3>
+    <div id="revProduct" style="display:flex;gap:12px;align-items:center;margin-bottom:18px"></div>
+    <label style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--sand-dim);display:block;margin-bottom:10px">Your rating</label>
+    <div class="star-input" id="revStars">
+      <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+    </div>
+    <div class="field" style="margin-top:16px">
+      <label style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--sand-dim);display:block;margin-bottom:8px">Your review</label>
+      <textarea id="revText" rows="4" placeholder="Tell others how it feels in the hand…" style="width:100%;padding:11px 13px;border:1px solid var(--linen-mid);border-radius:var(--radius);font-family:var(--sans);font-size:13px;background:var(--linen);resize:vertical"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost" id="revCancel">Cancel</button>
+      <button class="btn-ghost" id="revSave" style="background:var(--ink);color:var(--gold);border-color:var(--ink)">Submit review</button>
+    </div>
+  </div>
+</div>
+
+<section id="ordersFooter"></section>
+
+<script src="kifran-data.js?v=6"></script>
+<script src="shop.js?v=6"></script>
+<script src="orders.js?v=6"></script>
+</body>
+</html>

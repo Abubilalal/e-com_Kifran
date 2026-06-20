@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/png" href="images/KIFRAN-LOGO.png"/>
+  <link rel="apple-touch-icon" href="images/KIFRAN-LOGO.png"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KIFRAN — Product</title>
+  <meta name="description" content="Handcrafted wood, made to be used. Explore the details, materials and provenance of every KIFRAN piece."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css?v=6"/>
+  <link rel="stylesheet" href="pages.css?v=6"/>
+  <link rel="stylesheet" href="shop.css?v=6"/>
+  <link rel="stylesheet" href="upgrade.css?v=6"/>
+</head>
+<body class="mkt">
+<div id="kfChrome"></div>
+
+<main class="mkt-wrap" id="pdRoot">
+  <!-- breadcrumb + product injected by product.js -->
+  <div class="pd-loading" id="pdLoading">Loading piece…</div>
+</main>
+
+<!-- STICKY ADD-TO-CART BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-bar-inner">
+    <img id="sbImg" src="" alt=""/>
+    <div class="sb-info">
+      <span class="sb-name" id="sbName"></span>
+      <span class="sb-price" id="sbPrice"></span>
+    </div>
+    <div class="sb-actions">
+      <button class="sb-cart" id="sbAdd">Add to cart</button>
+      <button class="sb-buy" id="sbBuy">Buy now</button>
+    </div>
+  </div>
+</div>
+
+<script src="kifran-data.js?v=6"></script>
+<script src="shop.js?v=6"></script>
+<script src="product.js?v=6"></script>
+</body>
+</html>

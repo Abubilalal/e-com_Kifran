@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/png" href="images/KIFRAN-LOGO.png"/>
+  <link rel="apple-touch-icon" href="images/KIFRAN-LOGO.png"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KIFRAN — Shop the Collection</title>
+  <meta name="description" content="Browse handcrafted KIFRAN wood pieces — canes, yarn tools, wellbeing and home décor. Filter by craft, material, colour and price."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css?v=6"/>
+  <link rel="stylesheet" href="pages.css?v=6"/>
+  <link rel="stylesheet" href="shop.css?v=6"/>
+  <link rel="stylesheet" href="upgrade.css?v=6"/>
+</head>
+<body class="mkt">
+<div id="kfChrome"></div>
+
+<main class="mkt-wrap">
+  <nav class="breadcrumb" id="plpCrumb"></nav>
+  <div class="plp-banner" id="plpBanner"></div>
+
+  <div class="sort-bar">
+    <span class="count" id="plpCount">Loading…</span>
+    <div class="sort-right">
+      <button class="filter-toggle" id="filterToggle">Filters</button>
+      <label for="plpSort">Sort</label>
+      <select id="plpSort">
+        <option value="popularity">Popularity</option>
+        <option value="price-low">Price — Low to High</option>
+        <option value="price-high">Price — High to Low</option>
+        <option value="newest">Newest First</option>
+        <option value="rating">Customer Rating</option>
+        <option value="bestselling">Best Selling</option>
+        <option value="discount">Discount %</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="plp-layout">
+    <aside class="filters" id="plpFilters"></aside>
+    <div>
+      <div class="active-pills" id="plpPills"></div>
+      <div class="mk-grid" id="plpGrid"></div>
+      <div id="plpPager"></div>
+    </div>
+  </div>
+</main>
+
+<div class="filter-backdrop" id="filterBackdrop"></div>
+
+<section id="plpRecs"></section>
+
+<script src="kifran-data.js?v=6"></script>
+<script src="shop.js?v=6"></script>
+<script src="plp.js?v=6"></script>
+</body>
+</html>

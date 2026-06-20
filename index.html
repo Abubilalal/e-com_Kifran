@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/png" href="images/KIFRAN-LOGO.png"/>
+  <link rel="apple-touch-icon" href="images/KIFRAN-LOGO.png"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KIFRAN — The Store · Handcrafted Wood, Made to be Used</title>
+  <meta name="description" content="Shop KIFRAN — handcrafted walking canes, yarn tools, and wooden wellbeing crafts. Slow craft, sustainably sourced, made to be used."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <link rel="preload" as="image" href="images/opt/cane-md.jpg" imagesrcset="images/opt/cane-md.jpg 1100w, images/opt/cane-lg.jpg 1600w" imagesizes="100vw"/>
+  <link rel="stylesheet" href="style.css?v=6"/>
+  <link rel="stylesheet" href="pages.css?v=6"/>
+  <link rel="stylesheet" href="shop.css?v=6"/>
+  <link rel="stylesheet" href="upgrade.css?v=6"/>
+</head>
+<body class="mkt">
+<div id="kfChrome"></div>
+
+<!-- HERO -->
+<section class="store-hero">
+  <img src="images/opt/cane-md.jpg" srcset="images/opt/cane-md.jpg 1100w, images/opt/cane-lg.jpg 1600w" sizes="100vw" alt="Handcrafted wood" fetchpriority="high" decoding="async" width="2000" height="3600"/>
+  <div class="veil"></div>
+  <div class="store-hero-body">
+    <span class="eyebrow">New Collection — 2025</span>
+    <h1>Where wood<br><em>becomes story</em></h1>
+    <p>Walking canes, yarn tools and wooden keepsakes — carved slowly, by hand, and meant to be kept.</p>
+    <div class="hero-ctas">
+      <a href="plp.html" class="btn-gold">Shop the collection</a>
+      <a href="plp.html?cat=Canes" class="btn-outline">Explore canes</a>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY NAV CARDS -->
+<section class="mk-section"><div class="wrapx">
+  <div class="cat-cards" id="catCards"></div>
+</div></section>
+
+<!-- PROMO STRIP 
+<div class="wrapx" style="margin-bottom:8px"><div class="promo-strip">
+  <div class="promo flash">
+    <span class="eyebrow">Flash sale</span>
+    <h3>Up to 30% off Heritage canes</h3>
+    <p>Hand-carved sheesham &amp; walnut, while stocks last.</p>
+    <span class="timer" id="flashTimer">Ends in 11:59:59</span>
+  </div>
+  <div class="promo ship">
+    <span class="eyebrow">Always</span>
+    <h3>Free shipping ₹2000+</h3>
+    <p>Packed by hand, delivered across India.</p>
+  </div>
+  <div class="promo fest">
+    <span class="eyebrow">Code WELCOME5</span>
+    <h3>5% off first order</h3>
+    <p>For our newest customers.</p>
+  </div>
+</div></div>-->
+
+<!-- FEATURED -->
+<section class="mk-section"><div class="wrapx">
+  <div class="mk-head"><div><h2>Featured pieces</h2></div><a class="link" href="plp.html">Shop all →</a></div>
+  <div class="mk-grid" id="featuredGrid"></div>
+</div></section>
+
+<!-- TRENDING CAROUSEL -->
+<section class="mk-section" style="padding-top:0"><div class="wrapx">
+  <div class="mk-head"><h2>Trending now</h2><a class="link" href="plp.html?sort=popularity">See more →</a></div>
+  <div class="mk-carousel" id="trendingCarousel"></div>
+</div></section>
+
+<!-- NEW ARRIVALS 
+<section class="mk-section" style="padding-top:0"><div class="wrapx">
+  <div class="mk-head"><div><span class="eyebrow">Just in</span><h2>New arrivals</h2></div><a class="link" href="plp.html?sort=newest">See more →</a></div>
+  <div class="mk-carousel" id="newCarousel"></div>
+</div></section>-->
+
+<!-- BEST SELLERS -->
+<section class="mk-section" style="padding-top:0"><div class="wrapx">
+  <div class="mk-head"><h2>Best sellers</h2><a class="link" href="plp.html?sort=bestselling">See more →</a></div>
+  <div class="mk-carousel" id="bestCarousel"></div>
+</div></section>
+
+<!-- RECENTLY VIEWED -->
+<section class="mk-section" id="recentSection" style="display:none;padding-top:0"><div class="wrapx">
+  <div class="mk-head"><h2>Recently viewed</h2></div>
+  <div class="mk-carousel" id="recentCarousel"></div>
+</div></section>
+
+<!-- TRUST -->
+<div class="trust-band"><div class="wrapx"><div class="trust-grid" id="trustGrid"></div></div></div>
+
+<!-- REVIEWS -->
+<section class="mk-section"><div class="wrapx">
+  <div class="mk-head" style="justify-content:center;text-align:center;flex-direction:column;align-items:center"><span class="eyebrow">Felt, not just bought</span><h2>What our customers carry home</h2></div>
+  <div class="rev-cards rev-cards--store" id="storeReviews"></div>
+</div></section>
+
+<!-- NEWSLETTER -->
+<section class="nl-band"><div class="wrapx">
+  <span class="eyebrow">Stay close</span>
+  <h2>New pieces. Old craft.<br><em>Straight to your inbox.</em></h2>
+  <p>Stories, new arrivals, and rare finds — no noise.</p>
+  <form class="nl-form2" id="nlForm"><input type="email" placeholder="your@email.com" required/><button type="submit">Subscribe</button></form>
+  <div class="nl-offer">Subscribe &amp; get 10% off your first order</div>
+</div></section>
+
+<!-- FOOTER -->
+<footer class="mkt-footer"><div class="wrapx">
+  <div class="mkt-footer-grid">
+    <div>
+      <div class="f-logo">KIFRAN</div>
+      <p class="f-about">From our family's tools to your home — handcrafted pieces made to be lived with, treasured, and remembered.</p>
+      <div class="f-pay"><span>UPI</span><span>Visa</span><span>Mastercard</span><span>RuPay</span><span>COD</span></div>
+    </div>
+    <div><h4>Shop</h4><a href="plp.html?cat=Canes">Canes</a><a href="plp.html?cat=Yarn Tools">Yarn Tools</a><a href="plp.html?cat=Wellbeing">Wellbeing</a><a href="plp.html?sale=1">Sale</a></div>
+    <div><h4>Help</h4><a href="orders.html">Track Order</a><a href="#">Shipping Policy</a><a href="#">Returns &amp; Exchange</a><a href="#">FAQs</a><a href="#">Contact</a></div>
+    <div><h4>Company</h4><a href="index.html">Our Story</a><a href="#">Careers</a><a href="#">Customer Service</a><a href="mailto:hello@kifran.com">hello@kifran.com</a><a href="admin.html">Admin</a></div>
+  </div>
+  <div class="mkt-footer-bottom">
+    <span>© 2025 KIFRAN. Handcrafted in India.</span>
+    <div class="links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a></div>
+  </div>
+</div></footer>
+
+<script src="kifran-data.js?v=6"></script>
+<script src="shop.js?v=6"></script>
+<script src="store.js?v=6"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/png" href="images/KIFRAN-LOGO.png"/>
+  <link rel="apple-touch-icon" href="images/KIFRAN-LOGO.png"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout — KIFRAN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css?v=6"/>
+  <link rel="stylesheet" href="pages.css?v=6"/>
+  <link rel="stylesheet" href="upgrade.css?v=6"/>
+</head>
+<body class="page">
+
+<div id="toasts"></div>
+
+<!-- top bar -->
+<header class="topbar">
+  <a href="index.html" class="topbar-logo">KIFRAN</a>
+  <span class="topbar-mid">Secure Checkout</span>
+  <span class="ssl-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    SSL Secured
+  </span>
+</header>
+
+<div class="page-wrap">
+  <h1 class="page-title">Checkout</h1>
+  <p class="page-sub">Complete your order — every piece is packed by hand.</p>
+
+  <div class="checkout-grid">
+
+    <!-- LEFT -->
+    <div>
+      <!-- customer info -->
+      <div class="co-panel">
+        <span class="co-step">Step 1 — Shipping details</span>
+        <h3>Customer Information</h3>
+        <div class="field-grid" style="margin-top:18px">
+          <div class="field"><label>Full Name</label><input id="f-name" type="text" placeholder="Your name"/><span class="err" id="e-name"></span></div>
+          <div class="field"><label>Email</label><input id="f-email" type="email" placeholder="you@email.com"/><span class="err" id="e-email"></span></div>
+          <div class="field"><label>Phone</label><input id="f-phone" type="tel" maxlength="10" placeholder="10-digit mobile"/><span class="err" id="e-phone"></span></div>
+          <div class="field"><label>Pincode</label><input id="f-pin" type="text" maxlength="6" placeholder="6-digit"/><span class="err" id="e-pin"></span></div>
+          <div class="field full"><label>Shipping Address</label><input id="f-addr" type="text" placeholder="House no, street, area"/><span class="err" id="e-addr"></span></div>
+          <div class="field"><label>City</label><input id="f-city" type="text" placeholder="City"/><span class="err" id="e-city"></span></div>
+          <div class="field"><label>State</label><input id="f-state" type="text" placeholder="State"/><span class="err" id="e-state"></span></div>
+          <div class="field full"><label>Country</label><input id="f-country" type="text" value="India"/></div>
+        </div>
+      </div>
+
+      <!-- payment -->
+      <div class="co-panel">
+        <span class="co-step">Step 2 — Payment method</span>
+        <h3>How would you like to pay?</h3>
+        <div class="pay-tabs" id="payTabs" style="margin-top:18px">
+          <button class="pay-tab active" data-pay="upi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg> UPI</button>
+          <button class="pay-tab" data-pay="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg> Card</button>
+          <button class="pay-tab" data-pay="netbank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 21h18M5 21V10M19 21V10M3 10l9-6 9 6M9 21v-6h6v6"/></svg> Net Banking</button>
+          <button class="pay-tab" data-pay="wallet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 7h18v12H3zM16 13h2"/></svg> Wallet</button>
+          <button class="pay-tab" data-pay="cod"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg> COD</button>
+        </div>
+
+        <div class="pay-body">
+          <!-- UPI -->
+          <div class="pay-pane active" data-pane="upi">
+            <div class="upi-box">
+             <img src="amanupi.jpg" loading="lazy" decoding="async"
+     id="upiQR"
+     class="qr"
+     alt="UPI QR — scan to pay">
+              <div>
+                <p style="font-size:14px;color:var(--ink-soft);margin-bottom:6px">Pay <strong id="upiAmt">₹0</strong> to:</p>
+                <div class="upi-id-row">
+                  <span class="upi-id" id="upiId">amaan2302@ibl</span>
+                  <button class="copy-btn" id="copyUpi">Copy</button>
+                </div>
+                <a id="upiAppLink" class="copy-btn" style="display:inline-block;margin-top:10px;text-decoration:none" href="#">Open in UPI app</a>
+                <p style="font-size:12px;color:var(--sand-dim);margin-top:10px">GPay · PhonePe · Paytm · BHIM · scan or tap to pay</p>
+                <p style="font-size:11px;color:var(--gold-dim);margin-top:8px">After paying, tap “Place Order”. We’ll confirm your payment shortly.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card -->
+          <div class="pay-pane" data-pane="card">
+            <div class="field-grid">
+              <div class="field full"><label>Card Number</label><input id="c-num" type="text" inputmode="numeric" maxlength="19" placeholder="1234 5678 9012 3456"/><span class="err" id="e-cnum"></span></div>
+              <div class="field full"><label>Card Holder Name</label><input id="c-name" type="text" placeholder="Name on card"/></div>
+              <div class="field"><label>Expiry (MM/YY)</label><input id="c-exp" type="text" maxlength="5" placeholder="MM/YY"/><span class="err" id="e-cexp"></span></div>
+              <div class="field"><label>CVV</label><input id="c-cvv" type="password" inputmode="numeric" maxlength="4" placeholder="•••"/><span class="err" id="e-ccvv"></span></div>
+            </div>
+            <p class="secure-row" style="justify-content:flex-start;margin-top:6px">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Your card details are encrypted &amp; never stored
+            </p>
+          </div>
+
+          <!-- Net Banking -->
+          <div class="pay-pane" data-pane="netbank">
+            <div class="field"><label>Select your bank</label>
+              <select id="bank">
+                <option value="">Choose bank…</option>
+                <option>State Bank of India</option><option>HDFC Bank</option><option>ICICI Bank</option>
+                <option>Axis Bank</option><option>Kotak Mahindra</option><option>Punjab National Bank</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Wallet -->
+          <div class="pay-pane" data-pane="wallet">
+            <div class="wallet-list">
+              <label class="pay-tab"><input type="radio" name="wallet" value="Paytm"/> Paytm</label>
+              <label class="pay-tab"><input type="radio" name="wallet" value="PhonePe"/> PhonePe</label>
+              <label class="pay-tab"><input type="radio" name="wallet" value="Amazon Pay"/> Amazon Pay</label>
+              <label class="pay-tab"><input type="radio" name="wallet" value="Mobikwik"/> Mobikwik</label>
+            </div>
+          </div>
+
+          <!-- COD -->
+          <div class="pay-pane" data-pane="cod">
+            <p class="cod-note">Pay in cash when your order arrives. A nominal handling fee may apply for COD orders. Please keep exact change ready for our delivery partner.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT : ORDER SUMMARY -->
+    <div class="co-panel summary">
+      <span class="co-step">Order summary</span>
+      <h3 style="margin-bottom:14px">Your items</h3>
+      <div id="sumItems"></div>
+
+      <div style="margin-top:16px">
+        <label class="field" style="margin:0"><span style="font-family:var(--mono);font-size:11px;color:var(--sand-dim);text-transform:uppercase">Coupon code</span></label>
+        <div class="coupon-row">
+          <input id="coupon" type="text" placeholder="e.g. KIFRAN10"/>
+          <button class="btn-ghost" id="applyCoupon">Apply</button>
+        </div>
+        <div class="coupon-msg" id="couponMsg"></div>
+      </div>
+
+      <div id="totals"></div>
+
+      <button class="place-btn" id="placeOrder"><span>Place Order</span></button>
+      <div class="secure-row">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        100% Secure Payment · UPI to amaan2302@ibl
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONFIRMATION -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-card">
+    <div class="check-ring"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <h2>Thank you!</h2>
+    <p>Your order has been placed successfully.</p>
+    <div class="order-id" id="confOrderId">#KFN-000000</div>
+    <div class="confirm-actions">
+      <button class="btn-ghost" id="dlInvoice">Download Invoice</button>
+      <button class="place-btn" style="margin:0" id="continueShop">Continue Shopping</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="kifran-data.js?v=6"></script>
+<script src="checkout.js?v=6"></script>
+</body>
+</html>

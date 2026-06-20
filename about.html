@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/png" href="images/KIFRAN-LOGO.png"/>
+  <link rel="apple-touch-icon" href="images/KIFRAN-LOGO.png"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — KIFRAN · Handcrafted Wood, Made to be Used</title>
+  <meta name="description" content="The KIFRAN story — handcrafted walking canes, yarn tools and wooden keepsakes shaped slowly by hand. Our mission, our craft, and why customers trust us."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css?v=6"/>
+  <link rel="stylesheet" href="pages.css?v=6"/>
+  <link rel="stylesheet" href="shop.css?v=6"/>
+  <link rel="stylesheet" href="upgrade.css?v=6"/>
+</head>
+<body class="mkt">
+<div id="kfChrome"></div>
+
+<main>
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="wrapx">
+      <span class="eyebrow">Our story</span>
+      <h1>Wood, worked slowly <em>into something kept</em></h1>
+      <p>KIFRAN began at a grandfather's workbench — a place where time was measured in shavings, not deadlines. We still make things the same way: by hand, with patience, and with the belief that the best objects are the ones you live with for decades.</p>
+    </div>
+  </section>
+
+  <!-- BRAND STORY -->
+  <section class="about-section"><div class="wrapx">
+    <div class="about-split">
+      <div class="about-media"><img src="images/opt/cane-lg.jpg" alt="Hand-carved walking cane" loading="lazy" decoding="async"/></div>
+      <div class="about-copy">
+        <span class="eyebrow">The KIFRAN identity</span>
+        <h2>A family craft, <em>carried forward</em></h2>
+        <p>What started as tools made for our own family — canes that took the weight of a daily walk, hooks worn smooth by years of yarn — slowly became something we wanted to share. Every KIFRAN piece still carries that intention: made to be used, not just displayed.</p>
+        <p>We work in small batches with sustainably sourced Indian hardwoods — sheesham, teak, walnut, rosewood — finishing each piece by hand so the grain stays honest beneath your fingertips. No two are ever exactly alike, and that is the point.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- MISSION -->
+  <section class="about-section" style="padding-top:0"><div class="wrapx">
+    <div class="about-split reverse">
+      <div class="about-media"><img src="images/opt/yarn-lg.jpg" alt="Wooden yarn tools" loading="lazy" decoding="async"/></div>
+      <div class="about-copy">
+        <span class="eyebrow">Why we exist</span>
+        <h2>To make heirlooms, <em>not products</em></h2>
+        <p>In a world of mass-produced, throwaway goods, KIFRAN exists to keep slow craft alive — and to put genuinely heirloom-quality wooden pieces within reach of ordinary homes. We believe an object made with care can hold meaning: a cane that becomes a companion, a gift that becomes a memory.</p>
+        <p>Our mission is simple — craft fewer, better things, treat our makers and materials with respect, and stand behind every piece long after it leaves the workshop.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- STATS -->
+  <div class="wrapx">
+    <div class="about-stats">
+      <div><div class="stat-num">12+</div><div class="stat-lbl">Years of craft</div></div>
+      <div><div class="stat-num">28</div><div class="stat-lbl">Signature pieces</div></div>
+      <div><div class="stat-num">4.8★</div><div class="stat-lbl">Average rating</div></div>
+      <div><div class="stat-num">100%</div><div class="stat-lbl">Hand-finished</div></div>
+    </div>
+  </div>
+
+  <!-- WHY CHOOSE -->
+  <section class="why-band"><div class="wrapx">
+    <span class="eyebrow">Why choose KIFRAN</span>
+    <h2>Made well, <em>backed fully</em></h2>
+    <p>Premium quality without the premium pretence — here's what comes with every order.</p>
+    <div class="why-grid" id="whyGrid"></div>
+  </div></section>
+
+  <section id="aboutFooter"></section>
+</main>
+
+<script src="kifran-data.js?v=6"></script>
+<script src="shop.js?v=6"></script>
+<script>
+(function () {
+  var S = window.KFShop;
+  var WHY = [
+    ['Premium quality', 'Sustainably sourced hardwood, hand-finished and inspected twice before it ships.', 'M9 12l2 2 4-4 M12 3l8.7 5v8L12 21 3.3 16V8z'],
+    ['Affordable pricing', 'Heirloom craft without the boutique markup — fair prices, honest value.', 'M12 2v20 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'],
+    ['Trusted service', 'Thousands of pieces delivered across India and abroad, with 7-day returns.', 'M20 6L9 17l-5-5'],
+    ['Fast support', 'Real humans on WhatsApp and chat, Mon–Sat — never a bot wall.', 'M21 11.5a8.4 8.4 0 0 1-12.8 7.5L3 21l1.9-5.7A8.4 8.4 0 1 1 21 11.5z'],
+  ];
+  document.getElementById('whyGrid').innerHTML = WHY.map(function (w) {
+    return '<div class="why-card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="' + w[2] + '"/></svg></div><h3>' + w[0] + '</h3><p>' + w[1] + '</p></div>';
+  }).join('');
+  if (S) document.getElementById('aboutFooter').innerHTML = S.trustBand() + S.newsletter() + S.footer();
+})();
+</script>
+</body>
+</html>
