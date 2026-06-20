@@ -85,7 +85,11 @@ window.KF = (function () {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
-    if (!res.ok) throw new Error('API error: ' + res.status);
+    if (!res.ok) {
+      let detail = '';
+      try { detail = ' — ' + (await res.text()); } catch (e) {}
+      throw new Error('API error: ' + res.status + detail);
+    }
     return res.json();
   }
   
@@ -360,14 +364,22 @@ window.KF = (function () {
 
   async function addOrder(order) {
     try {
-      await apiPost('orders', order);
+      const result = await apiPost('orders', order);
+      // If the API returned an explicit failure, treat it as an error
+      if (result && result.success === false) {
+        throw new Error(result.error || 'Order API returned failure');
+      }
       _ordersCache = null;
       await fetchOrders();
+      return result;
     } catch (err) {
-      // Fallback: store locally and sync later
+      console.error('addOrder failed:', err);
+      // Keep a local copy so the order is not lost, but RE-THROW so the
+      // checkout page knows it did not reach the database.
       const o = getOrders();
       o.unshift(order);
       setOrders(o);
+      throw err;
     }
   }
 
