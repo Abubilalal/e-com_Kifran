@@ -198,7 +198,8 @@ document.getElementById('placeOrder').addEventListener('click', async () => {
     document.getElementById('confirmOverlay').classList.add('show');
     btn.innerHTML = '<span>Place Order</span>';
   } catch (err) {
-    toast('Order failed — please try again', 'bad');
+    console.error('Checkout error:', err);
+    toast('Order failed: ' + (err && err.message ? err.message : 'please try again'), 'bad');
     btn.disabled = false;
     btn.innerHTML = '<span>Place Order</span>';
   }
