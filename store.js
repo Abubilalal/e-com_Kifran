@@ -60,19 +60,22 @@
     </div>`).join('');
 
   /* flash timer */
-  let secs = 12 * 3600 - 1;
   const tEl = $('#flashTimer');
-  setInterval(() => {
-    if (secs <= 0) return;
-    secs--;
-    const h = String(Math.floor(secs / 3600)).padStart(2, '0');
-    const m = String(Math.floor((secs % 3600) / 60)).padStart(2, '0');
-    const s = String(secs % 60).padStart(2, '0');
-    tEl.textContent = `Ends in ${h}:${m}:${s}`;
-  }, 1000);
+  if (tEl) {
+    let secs = 12 * 3600 - 1;
+    setInterval(() => {
+      if (secs <= 0) return;
+      secs--;
+      const h = String(Math.floor(secs / 3600)).padStart(2, '0');
+      const m = String(Math.floor((secs % 3600) / 60)).padStart(2, '0');
+      const s = String(secs % 60).padStart(2, '0');
+      if (tEl) tEl.textContent = `Ends in ${h}:${m}:${s}`;
+    }, 1000);
+  }
 
   /* newsletter */
-  $('#nlForm').addEventListener('submit', e => {
+  const nlForm = $('#nlForm');
+  if (nlForm) nlForm.addEventListener('submit', e => {
     e.preventDefault();
     e.target.querySelector('input').value = '';
     S.toast('Subscribed — check your inbox for 10% off ✓', 'ok');
