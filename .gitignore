@@ -1,0 +1,11 @@
+# dependencies
+node_modules/
+
+# env / secrets — never commit your Neon connection string
+.env
+.env*.local
+.vercel
+
+# os junk
+.DS_Store
+Thumbs.db

@@ -1,0 +1,13 @@
+{
+  "name": "kifran-ecom",
+  "version": "1.0.0",
+  "private": true,
+  "description": "KIFRAN e-commerce \u2014 Vercel (serverless) + Neon Postgres",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4"
+  }
+}

@@ -1,10 +1,12 @@
 /* ============================================================
    KIFRAN — kifran-data.js (Database Edition)
-   Connects to Hostinger MySQL via PHP API
+   Connects to Neon (Postgres) via Vercel serverless functions
 ============================================================ */
 window.KF = (function () {
-  const API_BASE = 'https://www.kifran.com/api/'; // CHANGE THIS to your actual domain
-  
+  // Same-origin Vercel serverless API (was Hostinger PHP on kifran.com).
+  // Relative path => works on the production domain, previews and localhost.
+  const API_BASE = '/api/';
+
   const KEYS = {
     products: 'kifran_products',
     cart:     'kifran_cart',
@@ -16,7 +18,19 @@ window.KF = (function () {
     lastSync: 'kifran_last_sync'
   };
 
-  const CATALOG_VERSION = 6; // Bumped for DB migration
+  const CATALOG_VERSION = 7; // Bumped for Vercel + Neon migration
+
+  // ---- One-time cache purge on the Hostinger -> Vercel/Neon switch ----
+  // Wipes any product/order data cached by browsers from the old kifran.com
+  // build so the very first load on Vercel reads straight from Neon.
+  const MIGRATION_TAG = 'kifran_migration_vercel_neon_v7';
+  try {
+    if (localStorage.getItem(MIGRATION_TAG) !== '1') {
+      ['kifran_products', 'kifran_orders', 'kifran_catalog_version',
+       'kifran_last_sync'].forEach(k => localStorage.removeItem(k));
+      localStorage.setItem(MIGRATION_TAG, '1');
+    }
+  } catch (e) { /* private mode / storage disabled — ignore */ }
 
   const CARD_DEFAULTS = {
     showDiscount:     false,
@@ -179,7 +193,7 @@ window.KF = (function () {
 
   async function fetchProducts() {
     try {
-      const products = await apiGet('products.php');
+      const products = await apiGet('products');
       _productsCache = products.map(enrich);
       _cacheTimestamp = Date.now();
       write(KEYS.products, products); // Backup to localStorage for offline
@@ -224,14 +238,14 @@ window.KF = (function () {
     const payload = { ...data };
     if (payload.desc && !payload.description) payload.description = payload.desc;
     delete payload.desc;
-    const result = await apiPost('products.php', payload);
+    const result = await apiPost('products', payload);
     _productsCache = null; // Invalidate cache
     await fetchProducts();
     return result;
   }
 
   async function deleteProduct(id) {
-    const result = await apiDelete('products.php', { id });
+    const result = await apiDelete('products', { id });
     _productsCache = null;
     await fetchProducts();
     return result;
@@ -318,7 +332,7 @@ window.KF = (function () {
 
   async function fetchOrders() {
     try {
-      const orders = await apiGet('orders.php');
+      const orders = await apiGet('orders');
       _ordersCache = orders;
       write(KEYS.orders, orders);
       return orders;
@@ -346,7 +360,7 @@ window.KF = (function () {
 
   async function addOrder(order) {
     try {
-      await apiPost('orders.php', order);
+      await apiPost('orders', order);
       _ordersCache = null;
       await fetchOrders();
     } catch (err) {
@@ -361,7 +375,7 @@ window.KF = (function () {
 
   async function updateOrderStatus(id, status) {
     try {
-      await apiPut('orders.php', { id, status });
+      await apiPut('orders', { id, status });
       _ordersCache = null;
       await fetchOrders();
     } catch (err) {
@@ -372,7 +386,7 @@ window.KF = (function () {
 
   async function setOrderTracking(id, trackingId, courier) {
     try {
-      await apiPut('orders.php', { id, trackingId, courier });
+      await apiPut('orders', { id, trackingId, courier });
       _ordersCache = null;
       await fetchOrders();
     } catch (err) {
@@ -387,7 +401,7 @@ window.KF = (function () {
       if (r) {
         r.reviews = r.reviews || {};
         r.reviews[productId] = { rating, text, at: Date.now() };
-        await apiPut('orders.php', { id: orderId, reviews: r.reviews });
+        await apiPut('orders', { id: orderId, reviews: r.reviews });
         _ordersCache = null;
         await fetchOrders();
       }
@@ -444,7 +458,7 @@ window.KF = (function () {
     if (!lastSync) {
       // First time - trigger seed
       try {
-        await fetch(API_BASE + 'seed.php');
+        await fetch(API_BASE + 'seed');
         await fetchProducts();
       } catch(e) { console.log('Seed not needed or failed:', e); }
     }
