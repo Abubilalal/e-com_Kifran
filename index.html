@@ -11,17 +11,36 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
   <link rel="preload" as="image" href="images/opt/cane-md.jpg" imagesrcset="images/opt/cane-md.jpg 1100w, images/opt/cane-lg.jpg 1600w" imagesizes="100vw"/>
-  <link rel="stylesheet" href="style.css?v=6"/>
-  <link rel="stylesheet" href="pages.css?v=6"/>
-  <link rel="stylesheet" href="shop.css?v=6"/>
-  <link rel="stylesheet" href="upgrade.css?v=6"/>
+  <link rel="stylesheet" href="style.css?v=8"/>
+  <link rel="stylesheet" href="pages.css?v=8"/>
+  <link rel="stylesheet" href="shop.css?v=8"/>
+  <link rel="stylesheet" href="upgrade.css?v=8"/>
 </head>
 <body class="mkt">
 <div id="kfChrome"></div>
 
 <!-- HERO -->
 <section class="store-hero">
-  <img src="images/opt/cane-md.jpg" srcset="images/opt/cane-md.jpg 1100w, images/opt/cane-lg.jpg 1600w" sizes="100vw" alt="Handcrafted wood" fetchpriority="high" decoding="async" width="2000" height="3600"/>
+  <video id="heroVideo" class="hero-video" autoplay muted loop playsinline poster="images/hero-poster.jpg" preload="auto"></video>
+  <script>
+  /* Pick the right hero video for the screen: portrait clip on phones,
+     landscape clip on tablet/desktop. Only ONE video is ever downloaded.
+     Runs during parse so there's no wasted fetch of the wrong file. */
+  (function () {
+    var v = document.getElementById('heroVideo');
+    if (!v) return;
+    var isMobile = window.matchMedia('(max-width: 768px)').matches;
+    var base   = isMobile ? 'images/hero-mobile' : 'images/hero';
+    var poster = isMobile ? 'images/hero-mobile-poster.jpg' : 'images/hero-poster.jpg';
+    v.setAttribute('poster', poster);
+    v.innerHTML =
+      '<source src="' + base + '.webm" type="video/webm">' +
+      '<source src="' + base + '.mp4" type="video/mp4">';
+    v.load();
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  })();
+  </script>
   <div class="veil"></div>
   <div class="store-hero-body">
     <span class="eyebrow">New Collection — 2025</span>
@@ -32,6 +51,18 @@
       <a href="plp.html?cat=Canes" class="btn-outline">Explore canes</a>
     </div>
   </div>
+  <button id="heroMute" class="hero-mute" type="button" aria-label="Unmute video" aria-pressed="false" title="Unmute">
+    <!-- muted icon (speaker with x) -->
+    <svg class="ic ic-off" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M11 5 6 9H3v6h3l5 4V5Z" fill="currentColor"/>
+      <path d="m16 9 5 6M21 9l-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <!-- unmuted icon (speaker with waves) -->
+    <svg class="ic ic-on" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M11 5 6 9H3v6h3l5 4V5Z" fill="currentColor"/>
+      <path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
 </section>
 
 <!-- CATEGORY NAV CARDS -->
@@ -125,8 +156,58 @@
   </div>
 </div></footer>
 
-<script src="kifran-data.js?v=6"></script>
-<script src="shop.js?v=6"></script>
-<script src="store.js?v=6"></script>
+<script src="kifran-data.js?v=8"></script>
+<script src="shop.js?v=8"></script>
+<script src="store.js?v=8"></script>
+<script>
+/* Hero video: stays muted on load (browsers require muted to autoplay),
+   never freezes, and sound is toggled ONLY by the on-video mute button. */
+(function () {
+  var v = document.getElementById('heroVideo');
+  var btn = document.getElementById('heroMute');
+  if (!v) return;
+
+  // Keep it playing: if anything ever pauses it while the page is visible,
+  // quietly resume (dropping to muted if audio is what got blocked).
+  function resume() {
+    if (document.hidden || !v.paused) return;
+    var p = v.play();
+    if (p && p.catch) p.catch(function () { v.muted = true; v.play().catch(function () {}); });
+  }
+  v.addEventListener('pause', function () { setTimeout(resume, 0); });
+  document.addEventListener('visibilitychange', resume);
+
+  if (!btn) return;
+
+  function paint() {
+    btn.classList.toggle('is-on', !v.muted);
+    btn.setAttribute('aria-pressed', String(!v.muted));
+    var label = v.muted ? 'Unmute video' : 'Mute video';
+    btn.setAttribute('aria-label', label);
+    btn.setAttribute('title', v.muted ? 'Unmute' : 'Mute');
+  }
+
+  btn.addEventListener('click', function () {
+    if (v.muted) {
+      // turn sound ON
+      v.muted = false;
+      v.volume = 0;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () { v.muted = true; paint(); });
+      var fade = setInterval(function () {
+        if (v.muted) { clearInterval(fade); return; }
+        v.volume = Math.min(0.6, v.volume + 0.04);
+        if (v.volume >= 0.6) clearInterval(fade);
+      }, 50);
+    } else {
+      // turn sound OFF
+      v.muted = true;
+    }
+    paint();
+  });
+
+  paint(); // start in muted state
+})();
+</script>
 </body>
 </html>
