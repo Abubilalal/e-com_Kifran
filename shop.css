@@ -135,6 +135,7 @@ body.mkt button, body.mkt a, body.mkt input, body.mkt select, body.mkt textarea 
 ============================================================ */
 .store-hero { position: relative; min-height: 520px; display: flex; align-items: center; overflow: hidden; background: var(--ink); }
 .store-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 28%; opacity: .68; image-rendering: auto; }
+.store-hero .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 28%; opacity: .68; }
 .store-hero .veil { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(14,11,8,.92), rgba(14,11,8,.45) 70%, transparent); }
 .store-hero-body { position: relative; max-width: 1280px; width: 100%; margin: 0 auto; padding: 60px 28px; }
 .store-hero-body .eyebrow { color: var(--gold); }
@@ -146,6 +147,28 @@ body.mkt button, body.mkt a, body.mkt input, body.mkt select, body.mkt textarea 
 .btn-gold:hover { background: var(--sand); }
 .btn-outline { background: transparent; color: var(--sand); border: 1px solid rgba(232,220,200,.4); border-radius: 40px; padding: 13px 26px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; transition: border-color .25s, color .25s; }
 .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+/* hero mute / unmute toggle — desktop: bottom-right of the hero */
+.hero-mute {
+  position: absolute; z-index: 20;
+  right: 20px; bottom: 20px;
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(232,220,200,.35);
+  background: rgba(14,11,8,.55);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  color: var(--sand);
+  cursor: pointer;
+  transition: background .2s, border-color .2s, color .2s, transform .15s;
+}
+.hero-mute:hover { background: rgba(14,11,8,.72); border-color: var(--gold); color: var(--gold); }
+.hero-mute:active { transform: scale(.93); }
+.hero-mute .ic { width: 20px; height: 20px; display: block; }
+.hero-mute .ic-on { display: none; }
+.hero-mute.is-on { color: var(--gold); border-color: rgba(201,162,90,.6); }
+.hero-mute.is-on .ic-off { display: none; }
+.hero-mute.is-on .ic-on { display: block; }
 
 /* category cards row */
 .cat-cards { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
@@ -886,4 +909,76 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .sticky-bar { bottom: 60px; }
   .sticky-bar-inner { gap: 10px; }
   .sticky-bar #sbImg { width: 40px; height: 40px; }
+}
+
+/* ============================================================
+   STORE — MOBILE HERO  (portrait video, bottom-aligned copy)
+   Added: phones get a tall 9:16 hero with the portrait clip;
+   text sits at the bottom over an upward fade so the cane stays
+   visible and the headline can never overflow off-screen.
+   Desktop/tablet (>768px) is untouched.
+============================================================ */
+@media (max-width: 768px) {
+  .store-hero {
+    min-height: 0;
+    height: min(86vh, 640px);
+    align-items: flex-end;            /* copy drops to the bottom */
+  }
+  .store-hero .hero-video,
+  .store-hero img {
+    object-fit: cover;
+    object-position: center 32%;      /* keep the carved handle in frame */
+    opacity: .95;                     /* let the portrait clip shine */
+  }
+  /* vertical veil: clear up top (show the cane), dark at the base (legible text) */
+  .store-hero .veil {
+    background: linear-gradient(to top,
+      rgba(14,11,8,.95) 0%,
+      rgba(14,11,8,.86) 24%,
+      rgba(14,11,8,.45) 50%,
+      rgba(14,11,8,0)   80%);
+  }
+  .store-hero-body {
+    padding: 0 22px 40px;
+    text-align: center;
+    max-width: 100%;
+  }
+  .store-hero-body .eyebrow { display: inline-block; }
+  .store-hero-body h1 {
+    margin: 12px auto 12px;
+    max-width: 100%;
+    font-size: clamp(28px, 8.5vw, 42px);
+    line-height: 1.08;
+  }
+  .store-hero-body p {
+    margin: 0 auto;
+    max-width: 40ch;
+    font-size: 14.5px;
+  }
+  .hero-ctas {
+    justify-content: center;
+    margin-top: 22px;
+    gap: 10px;
+  }
+  .hero-ctas .btn-gold,
+  .hero-ctas .btn-outline {
+    flex: 1 1 auto;
+    min-width: 150px;
+    text-align: center;
+  }
+  /* mute toggle moves to the TOP-right on phones (bottom-right is taken
+     by the WhatsApp/chat floats + bottom nav) */
+  .hero-mute {
+    top: 14px; right: 14px; bottom: auto;
+    width: 40px; height: 40px;
+  }
+  .hero-mute .ic { width: 18px; height: 18px; }
+}
+
+/* very small phones: keep the headline comfortably inside the screen */
+@media (max-width: 360px) {
+  .store-hero { height: min(82vh, 560px); }
+  .store-hero-body { padding: 0 16px 32px; }
+  .hero-ctas .btn-gold,
+  .hero-ctas .btn-outline { min-width: 130px; padding: 12px 18px; }
 }
