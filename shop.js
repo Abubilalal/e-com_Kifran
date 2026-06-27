@@ -44,7 +44,9 @@
     <header class="mkt-nav">
       <div class="mkt-nav-top">
         <button class="mkt-ic mkt-burger" id="kfBurger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
-        <a href="store.html" class="mkt-logo">KIFRAN</a>
+        <a href="store.html" class="mkt-logo">
+          <img src="images/kifran_logo.png" class="site-logo">
+        </a>
         <div class="mkt-search">
           <input id="kfSearch" type="text" placeholder="Search canes, yarn tools, gifts…" autocomplete="off" aria-label="Search products"/>
           <button class="mkt-search-btn" id="kfSearchBtn" aria-label="Search">${I.search}</button>
@@ -453,7 +455,9 @@
     <footer class="mkt-footer"><div class="wrapx">
       <div class="mkt-footer-grid">
         <div>
-          <div class="f-logo">KIFRAN</div>
+          <a href="store.html" class="mkt-logo">
+           <img src="images/kifran_logo.png" class="site-logo">
+          </a>
           <p class="f-about">From our family's tools to your home — handcrafted pieces made to be lived with, treasured, and remembered.</p>
           <div class="f-pay"><span>UPI</span><span>Visa</span><span>Mastercard</span><span>RuPay</span><span>COD</span></div>
         </div>
